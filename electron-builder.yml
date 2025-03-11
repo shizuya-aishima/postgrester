@@ -30,4 +30,17 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   createStartMenuShortcut: true
-  shortcutName: SQL Client 
+  shortcutName: SQL Client
+
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64
+  icon: build/icons
+  category: Development
+  maintainer: SQL Client Team
+  artifactName: "SQLClient-${version}-${arch}.${ext}" 

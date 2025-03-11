@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景円 -->
+  <circle cx="256" cy="256" r="250" fill="#2563eb" />
+  
+  <!-- データベースシンボル -->
+  <ellipse cx="256" cy="150" rx="120" ry="50" fill="#ffffff" />
+  <path d="M376 150v100c0 27.614-53.726 50-120 50s-120-22.386-120-50v-100" fill="none" stroke="#ffffff" stroke-width="20" />
+  
+  <!-- SQL文字 -->
+  <g transform="translate(256, 350)" fill="#ffffff" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="90">
+    <text x="0" y="0">SQL</text>
+  </g>
+  
+  <!-- コンソールライン装飾 -->
+  <path d="M196 180l40 30-40 30" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M256 240h50" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" />
+</svg> 
