@@ -1,0 +1,72 @@
+{
+  "name": "sqlClient",
+  "version": "1.0.0",
+  "description": "SQLクライアントアプリケーション - PostgreSQL、MySQL、Oracleをサポート",
+  "main": "electron-dist/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:next\" \"npm run dev:electron\"",
+    "dev:next": "next dev",
+    "dev:electron": "wait-on http://localhost:3000 && electron .",
+    "build": "next build",
+    "start": "next start",
+    "build:electron": "electron-builder --win",
+    "build:portable": "npm run compile-electron && next build && electron-builder --win portable",
+    "build:all": "npm run compile-electron && next build && electron-builder --win",
+    "postinstall": "electron-builder install-app-deps",
+    "generate:icons": "node scripts/generate-icons.js",
+    "compile-electron": "tsc -p electron/tsconfig.json"
+  },
+  "keywords": [
+    "sql",
+    "client",
+    "database",
+    "postgres"
+  ],
+  "author": {
+    "name": "SQL Client Team",
+    "email": "example@example.com"
+  },
+  "homepage": "https://github.com/example/sqlclient",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
+    "@monaco-editor/react": "^4.7.0",
+    "@mui/icons-material": "^6.4.7",
+    "@mui/material": "^6.4.7",
+    "autoprefixer": "^10.4.16",
+    "clsx": "^2.1.1",
+    "electron-serve": "^2.1.1",
+    "electron-store": "^10.0.1",
+    "monaco-editor": "^0.52.2",
+    "next": "^15.2.2",
+    "next-themes": "^0.4.5",
+    "postcss": "^8.4.31",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/pg": "^8.11.11",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^35.0.1",
+    "electron-builder": "^25.1.8",
+    "electron-is-dev": "^3.0.1",
+    "eslint": "^9.22.0",
+    "pg": "^8.13.3",
+    "pg-cursor": "^2.12.3",
+    "png-to-ico": "^2.1.8",
+    "sharp": "^0.33.5",
+    "svg2png": "^4.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "wait-on": "^8.0.2"
+  }
+}

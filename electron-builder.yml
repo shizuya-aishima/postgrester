@@ -1,0 +1,33 @@
+appId: com.sqlclient.app
+productName: SQL Client
+copyright: Copyright © 2023
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - electron-dist/**/*
+  - out/**/*
+  - package.json
+
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+    - target: nsis
+      arch:
+        - x64
+  icon: build/icon.ico
+
+portable:
+  artifactName: "SQLClient-Portable.exe"
+  requestExecutionLevel: "user"
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: SQL Client 
