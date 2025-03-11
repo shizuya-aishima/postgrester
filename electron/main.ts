@@ -31,7 +31,7 @@ function createMainWindow(): void {
       contextIsolation: true, // セキュリティのためtrue
       preload: path.join(__dirname, 'preload.js'), // preloadスクリプトへのパス
     },
-    title: 'SQL Client',
+    title: 'Postgrester',
     // Windowsネイティブの外観
     frame: true,
     backgroundColor: '#fff',

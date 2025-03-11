@@ -1,7 +1,7 @@
 {
-  "name": "sqlClient",
+  "name": "postgrester",
   "version": "1.0.0",
-  "description": "SQLクライアントアプリケーション - PostgreSQL、MySQL、Oracleをサポート",
+  "description": "Advanced SQL client for PostgreSQL with future support for MySQL and Oracle",
   "main": "electron-dist/main.js",
   "scripts": {
     "dev": "concurrently \"npm run dev:next\" \"npm run dev:electron\"",
@@ -26,7 +26,7 @@
     "name": "SQL Client Team",
     "email": "example@example.com"
   },
-  "homepage": "https://github.com/example/sqlclient",
+  "homepage": "https://github.com/example/postgrester",
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.14.0",
