@@ -71,7 +71,7 @@ jobs:
       
       # ステップ10: ビルドした.exeファイルをGitHub Actionsの成果物としてアップロード
       - name: ビルド成果物のアップロード
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # v3からv4に更新（非推奨警告対応）
         with:
           name: electron-app      # 成果物の名前
           path: dist/*.exe        # アップロードするファイルのパス（dist内の全.exeファイル）
@@ -85,7 +85,7 @@ jobs:
     steps:
       # ステップ1: ビルドジョブでアップロードした成果物をダウンロード
       - name: ビルド成果物のダウンロード
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4  # v3からv4に更新（非推奨警告対応）
         with:
           name: electron-app      # ダウンロードする成果物の名前（buildジョブでアップロードしたもの）
           path: dist              # ダウンロード先のパス
