@@ -18,7 +18,8 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "typeRoots": ["./node_modules/@types", "./scripts", "./types"]
+    "typeRoots": ["./node_modules/@types", "./scripts", "./types"],
+    "downlevelIteration": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "electron/**/*.ts", "scripts/types.d.ts", "types/*.d.ts"],
   "exclude": ["node_modules", "dist", "out"]
