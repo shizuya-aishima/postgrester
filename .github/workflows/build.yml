@@ -28,7 +28,7 @@ jobs:
       - name: Node.jsのセットアップ
         uses: actions/setup-node@v4
         with:
-          node-version: 18  # Node.js バージョン18を使用（Electronとの互換性を考慮）
+          node-version: 22  # Node.js バージョン22を使用（Electronとの互換性を考慮）
           
       # ステップ3: pnpmのセットアップ（パッケージマネージャー）
       - name: pnpmのセットアップ
