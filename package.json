@@ -4,6 +4,9 @@
   "description": "Advanced SQL client for PostgreSQL with future support for MySQL and Oracle",
   "main": "electron-dist/main.js",
   "type": "module",
+  "exports": {
+    ".": "./electron-dist/main.js"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:next\" \"npm run dev:electron\"",
     "dev:next": "next dev",

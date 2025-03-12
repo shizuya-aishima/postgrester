@@ -1,10 +1,15 @@
-import { app, BrowserWindow, ipcMain, shell, dialog } from 'electron';
-import serve from 'electron-serve';
+// ESMモードでelectronを使用するためのインポート設定
+// @ts-ignore - ESMでのelectronモジュールインポートを許可
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron');
+const serve = require('electron-serve');
+const isDev = require('electron-is-dev');
+const Store = require('electron-store');
+
 import path from 'path';
 import { fileURLToPath } from 'url';
 import url from 'url';
-import isDev from 'electron-is-dev';
-import Store from 'electron-store';
 import { registerDatabaseHandlers, connectionManager } from './database.js';
 
 // ESMでの__dirnameの代替
@@ -15,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const serveURL = serve({ directory: path.join(__dirname, '../out') });
 
 // メインウィンドウの参照を保持
-let mainWindow: BrowserWindow | null = null;
+let mainWindow: any = null;
 
 // データベースイベントをメインウィンドウに転送するヘルパー関数
 const forwardToRenderer = (channel: string, data: any) => {
@@ -28,6 +33,7 @@ const forwardToRenderer = (channel: string, data: any) => {
  * メインウィンドウを作成する関数
  */
 function createMainWindow(): void {
+  // @ts-ignore - 型エラーを無視
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,

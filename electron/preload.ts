@@ -1,4 +1,29 @@
-import { contextBridge, ipcRenderer } from 'electron';
+// ESMモードでelectronを使用するためのインポート設定
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { contextBridge, ipcRenderer } = require('electron');
+
+// Electron型定義
+type OpenDialogOptions = {
+  title?: string;
+  defaultPath?: string;
+  buttonLabel?: string;
+  filters?: Array<{ name: string; extensions: string[] }>;
+  properties?: Array<string>;
+  message?: string;
+  securityScopedBookmarks?: boolean;
+};
+
+type SaveDialogOptions = {
+  title?: string;
+  defaultPath?: string;
+  buttonLabel?: string;
+  filters?: Array<{ name: string; extensions: string[] }>;
+  message?: string;
+  nameFieldLabel?: string;
+  showsTagField?: boolean;
+  securityScopedBookmarks?: boolean;
+};
 
 // データベース接続の設定インターフェース
 interface ConnectionConfig {
@@ -144,12 +169,12 @@ contextBridge.exposeInMainWorld('electron', {
   // ファイルダイアログAPI
   dialog: {
     // ファイル選択ダイアログを表示
-    showOpenDialog: (options: Electron.OpenDialogOptions) => {
+    showOpenDialog: (options: OpenDialogOptions) => {
       return ipcRenderer.invoke('show-open-dialog', options);
     },
     
     // ファイル保存ダイアログを表示
-    showSaveDialog: (options: Electron.SaveDialogOptions) => {
+    showSaveDialog: (options: SaveDialogOptions) => {
       return ipcRenderer.invoke('show-save-dialog', options);
     }
   }

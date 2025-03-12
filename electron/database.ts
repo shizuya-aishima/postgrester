@@ -1,4 +1,9 @@
-import { ipcMain } from 'electron';
+// ESMモードでelectronを使用するためのインポート設定
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { ipcMain } = require('electron');
+
+// 他のインポート
 import { Pool, PoolClient, QueryResult as PgQueryResult } from 'pg';
 // @ts-ignore - pg-cursorの型定義がないため
 import Cursor from 'pg-cursor';
