@@ -58,7 +58,7 @@ release:
   steps:
     # ステップ1: ビルドジョブでアップロードした成果物をダウンロード
     - name: ビルド成果物のダウンロード
-      uses: actions/download-artifact@v4  # v3からv4に更新（非推奨警告対応）
+      uses: actions/download-artifact@v4  # 最新バージョンv4を使用
       with:
         name: electron-app      # ダウンロードする成果物の名前（testジョブでアップロードしたもの）
         path: dist              # ダウンロード先のパス
