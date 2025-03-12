@@ -1,10 +1,10 @@
 import { app, BrowserWindow, ipcMain, shell, dialog } from 'electron';
-import serve from 'electron-serve';
-import path from 'path';
-import isDev from 'electron-is-dev';
-import Store from 'electron-store';
+const serve = require('electron-serve');
+const path = require('path');
+const isDev = require('electron-is-dev');
+const Store = require('electron-store');
 import { registerDatabaseHandlers } from './database';
-import * as url from 'url';
+const url = require('url');
 
 // 開発モードではlocalhostを提供し、本番モードではビルドされたNext.jsアプリを提供
 const serveURL = serve({ directory: path.join(__dirname, '../out') });
