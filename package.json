@@ -16,7 +16,8 @@
     "lint": "eslint --ext .ts,.tsx .",
     "build:electron": "electron-builder build --win",
     "build:portable": "electron-builder build --win portable",
-    "compile-electron": "tsc -p main"
+    "compile-electron": "tsc -p main",
+    "electron-builder": "electron-builder"
   },
   "dependencies": {
     "electron-serve": "^1.1.0",
