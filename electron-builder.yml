@@ -1,46 +1,29 @@
-appId: com.sqlclient.app
+appId: com.example.sqlclient
 productName: SQL Client
 copyright: Copyright © 2023
-
 directories:
   output: dist
-  buildResources: build
-
+  buildResources: resources
 files:
-  - electron-dist/**/*
-  - out/**/*
-  - package.json
-
+  - "package.json"
+  - "background.js"
+  - "preload.js"
+  - "out/**/*"
+publish: null
 win:
   target:
-    - target: portable
-      arch:
-        - x64
-    - target: nsis
-      arch:
-        - x64
-  icon: build/icon.ico
-
-portable:
-  artifactName: "SQLClient-Portable.exe"
-  requestExecutionLevel: "user"
-
+    - nsis
+    - portable
+  icon: resources/icon.ico
+linux:
+  target:
+    - AppImage
+    - deb
+  icon: resources/icon.png
+  category: Development
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
-  createDesktopShortcut: true
-  createStartMenuShortcut: true
-  shortcutName: SQL Client
-
-linux:
-  target:
-    - target: AppImage
-      arch:
-        - x64
-    - target: deb
-      arch:
-        - x64
-  icon: build/icons
-  category: Development
-  maintainer: SQL Client Team
-  artifactName: "SQLClient-${version}-${arch}.${ext}" 
+  uninstallDisplayName: SQL Client
+portable:
+  artifactName: SQLClient-portable-${version}.exe 

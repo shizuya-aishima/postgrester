@@ -7,7 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
   // アプリケーションパス
-  distDir: 'renderer/.next',
+  distDir: "../app",
   // ベースパスの設定
   basePath: '',
   // ウェブサーバーのルート相対でアセットをロード
