@@ -4,8 +4,13 @@ import { Pool, PoolClient, QueryResult as PgQueryResult } from 'pg';
 import Cursor from 'pg-cursor';
 import { promisify } from 'util';
 import * as fs from 'fs';
-import * as path from 'path';
+import path from 'path';
 import { EventEmitter } from 'events';
+import { fileURLToPath } from 'url';
+
+// ESMでの__dirnameの代替
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // 接続設定の型定義
 export interface ConnectionConfig {
@@ -931,7 +936,7 @@ class ConnectionManager {
 const connectionManager = new ConnectionManager();
 
 // データベースハンドラーを登録
-export function registerDatabaseHandlers() {
+function registerDatabaseHandlers() {
   // PostgreSQL接続ハンドラー
   ipcMain.handle('connect-postgres', async (_event, config: ConnectionConfig) => {
     return await connectionManager.createDatabaseConnection(config);
@@ -996,5 +1001,5 @@ export function registerDatabaseHandlers() {
   });
 }
 
-// コネクションマネージャーをエクスポート
-export { connectionManager }; 
+// エクスポート
+export { connectionManager, registerDatabaseHandlers }; 

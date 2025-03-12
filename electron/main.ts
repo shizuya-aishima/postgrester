@@ -1,10 +1,15 @@
 import { app, BrowserWindow, ipcMain, shell, dialog } from 'electron';
-const serve = require('electron-serve');
-const path = require('path');
-const isDev = require('electron-is-dev');
-const Store = require('electron-store');
-import { registerDatabaseHandlers } from './database';
-const url = require('url');
+import serve from 'electron-serve';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import url from 'url';
+import isDev from 'electron-is-dev';
+import Store from 'electron-store';
+import { registerDatabaseHandlers, connectionManager } from './database.js';
+
+// ESMでの__dirnameの代替
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // 開発モードではlocalhostを提供し、本番モードではビルドされたNext.jsアプリを提供
 const serveURL = serve({ directory: path.join(__dirname, '../out') });
@@ -54,12 +59,13 @@ function createMainWindow(): void {
   }
 
   // データベース接続イベントリスナーを追加
-  const connectionManager = require('./database').connectionManager;
-  if (connectionManager && connectionManager.eventEmitter) {
+  if (connectionManager) {
+    // @ts-ignore - privateプロパティにアクセスする必要がある
     connectionManager.eventEmitter.on('database-connection-created', (data: any) => {
       forwardToRenderer('database-connection-created', data);
     });
     
+    // @ts-ignore - privateプロパティにアクセスする必要がある
     connectionManager.eventEmitter.on('database-connection-error', (data: any) => {
       forwardToRenderer('database-connection-error', data);
     });
