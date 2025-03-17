@@ -21,7 +21,7 @@ pre-commit:
   commands:
     check:
       glob: "*.{ts,tsx,json}"
-      run: pnpm biome check --write {staged_files}
+      run: pnpm check {staged_files}
 #   parallel: true
 #   jobs:
 #     - run: yarn eslint {staged_files}
