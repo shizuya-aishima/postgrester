@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      app-root-path:
+        specifier: ^3.1.0
+        version: 3.1.0
       electron-is-dev:
         specifier: ^1.2.0
         version: 1.2.0
