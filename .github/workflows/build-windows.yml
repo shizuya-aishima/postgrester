@@ -51,6 +51,9 @@ jobs:
 
       - name: Build Windows application
         run: pnpm dist --win
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+          ELECTRON_BUILDER_PUBLISH: never
 
       - name: Upload Windows Installer
         uses: actions/upload-artifact@v4
