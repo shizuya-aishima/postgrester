@@ -32,10 +32,22 @@
     "typescript": "^4.9.5"
   },
   "build": {
+    "extraMetadata": {
+      "dependencies": {
+        "app-root-path": "^3.1.0"
+      }
+    },
     "asar": true,
     "files": [
       "main",
-      "renderer/out"
+      "renderer/out",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/app-root-path",
+        "to": "node_modules/app-root-path"
+      }
     ]
   }
 }
