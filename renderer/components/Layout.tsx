@@ -1,6 +1,6 @@
-import React, { type ReactNode } from 'react';
-import Link from 'next/link';
 import Head from 'next/head';
+import Link from 'next/link';
+import React, { type ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
