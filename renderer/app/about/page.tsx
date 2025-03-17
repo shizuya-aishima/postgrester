@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function AboutPage() {
   return (
@@ -6,8 +6,8 @@ export default function AboutPage() {
       <h1>About</h1>
       <p>This is the about page</p>
       <p>
-        <Link href="/">Go home</Link>
+        <Link href='/'>Go home</Link>
       </p>
     </div>
   );
-} 
+}

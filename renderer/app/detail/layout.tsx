@@ -1,4 +1,4 @@
-import React from "react";
+import type React from 'react';
 
 export default function DetailLayout({
   children,
@@ -6,4 +6,4 @@ export default function DetailLayout({
   children: React.ReactNode;
 }) {
   return <>{children}</>;
-} 
+}

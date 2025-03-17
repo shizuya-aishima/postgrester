@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { contextBridge, ipcRenderer } from "electron";
-import { IpcRendererEvent } from "electron/main";
+import type { IpcRendererEvent } from "electron/main";
 
 // We are using the context bridge to securely expose NodeAPIs.
 // Please note that many Node APIs grant access to local system resources.

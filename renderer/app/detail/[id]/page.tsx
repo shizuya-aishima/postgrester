@@ -1,7 +1,7 @@
-import { Metadata } from "next";
-import ListDetail from "../../../components/ListDetail";
-import { User } from "../../../interfaces";
-import { findAll, findData } from "../../../utils/sample-api";
+import type { Metadata } from 'next';
+import ListDetail from '../../../components/ListDetail';
+import type { User } from '../../../interfaces';
+import { findAll, findData } from '../../../utils/sample-api';
 
 type Props = {
   params: {
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   } catch (err) {
     return {
-      title: `Error | Next.js + TypeScript + Electron Example`,
+      title: 'Error | Next.js + TypeScript + Electron Example',
     };
   }
 }
@@ -36,8 +36,8 @@ export default async function DetailPage({ params }: Props) {
   } catch (err) {
     return (
       <p>
-        <span style={{ color: "red" }}>Error:</span> {err.message}
+        <span style={{ color: 'red' }}>Error:</span> {err.message}
       </p>
     );
   }
-} 
+}

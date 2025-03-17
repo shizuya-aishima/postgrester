@@ -1,8 +1,8 @@
-import React from "react";
-import type { Metadata } from "next";
+import type React from 'react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "About | Next.js + TypeScript + Electron Example",
+  title: 'About | Next.js + TypeScript + Electron Example',
 };
 
 export default function AboutLayout({
@@ -11,4 +11,4 @@ export default function AboutLayout({
   children: React.ReactNode;
 }) {
   return <>{children}</>;
-} 
+}

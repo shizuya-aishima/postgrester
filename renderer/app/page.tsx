@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 export default function HomePage() {
   useEffect(() => {
@@ -21,7 +21,9 @@ export default function HomePage() {
   return (
     <div>
       <h1>Hello Next.js 👋</h1>
-      <button onClick={onSayHiClick}>Say hi to electron</button>
+      <button type='button' onClick={onSayHiClick}>
+        Say hi to electron
+      </button>
     </div>
   );
-} 
+}

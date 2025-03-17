@@ -3,7 +3,7 @@ import { join } from "path";
 import { format } from "url";
 
 // Packages
-import { BrowserWindow, app, ipcMain, IpcMainEvent } from "electron";
+import { BrowserWindow, app, ipcMain, type IpcMainEvent } from "electron";
 import isDev from "electron-is-dev";
 import prepareNext from "electron-next";
 

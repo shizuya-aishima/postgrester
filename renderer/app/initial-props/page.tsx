@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import List from "../../components/List";
-import { User } from "../../interfaces";
-import { findAll } from "../../utils/sample-api";
-import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import List from '../../components/List';
+import type { User } from '../../interfaces';
+import { findAll } from '../../utils/sample-api';
+import { useEffect, useState } from 'react';
 
 export default function InitialPropsPage() {
   const pathname = usePathname();
@@ -18,7 +18,7 @@ export default function InitialPropsPage() {
         const data = await findAll();
         setItems(data);
       } catch (error) {
-        console.error("Failed to fetch data:", error);
+        console.error('Failed to fetch data:', error);
       } finally {
         setLoading(false);
       }
@@ -31,14 +31,10 @@ export default function InitialPropsPage() {
     <div>
       <h1>List Example (as Function Component)</h1>
       <p>You are currently on: {pathname}</p>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <List items={items} />
-      )}
+      {loading ? <p>Loading...</p> : <List items={items} />}
       <p>
-        <Link href="/">Go home</Link>
+        <Link href='/'>Go home</Link>
       </p>
     </div>
   );
-} 
+}
