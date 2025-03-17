@@ -42,6 +42,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      # electron-nextの型定義問題を解決
+      - name: Create electron-next type definition if missing
+        run: |
+          if (-not (Test-Path "electron-src\electron-next.d.ts")) {
+            echo "declare module 'electron-next';" | Out-File -FilePath "electron-src\electron-next.d.ts" -Encoding utf8
+          }
+
       - name: Build Windows application
         run: pnpm dist --win
 
