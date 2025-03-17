@@ -38,6 +38,28 @@ jobs:
     - name: Install dependencies
       run: |
         pnpm install
+    
+    - name: ディレクトリ構造を確認・作成
+      run: |
+        echo "現在のディレクトリ構造を表示"
+        ls -la
+        echo "rendererディレクトリの内容"
+        ls -la renderer || mkdir -p renderer
+        echo "renderer/appディレクトリの作成"
+        mkdir -p renderer/app
+        echo "必要なNext.jsのファイルを作成"
+        echo "export default function Page() { return <div>Hello World</div> }" > renderer/app/page.tsx
+        echo "export default function Layout({ children }) { return <html><body>{children}</body></html> }" > renderer/app/layout.tsx
+        echo "body { font-family: sans-serif; }" > renderer/app/globals.css
+        echo "@tailwind base; @tailwind components; @tailwind utilities;" >> renderer/app/globals.css
+        echo "import './globals.css'; export const metadata = { title: 'SQL Client' }; export default function RootLayout({ children }) { return <html lang=\"ja\"><body>{children}</body></html>; }" > renderer/app/layout.tsx
+        echo "ディレクトリ作成完了"
+        ls -la renderer/app
+        
+    - name: Create renderer/next.config.js
+      run: |
+        cp next.config.js renderer/next.config.js
+        sed -i 's/distDir:.*/distDir: ".next",/' renderer/next.config.js
         
     - name: Build Next.js App
       run: |
