@@ -17,7 +17,6 @@ renderer/.next/
 
 # コンパイル済みファイル
 *.js.map
-*.d.ts
 preload.js
 background.js
 
