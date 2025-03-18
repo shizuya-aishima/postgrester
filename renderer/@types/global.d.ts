@@ -39,11 +39,13 @@ interface ConnectionConfig {
 
 interface Window {
   electronAPI: {
-    testConnection: (connectionConfig: ConnectionConfig) => Promise<{ success: boolean; error?: string }>;
-    
+    testConnection: (
+      connectionConfig: ConnectionConfig,
+    ) => Promise<{ success: boolean; error?: string }>;
+
     executeQuery: (
       connectionConfig: ConnectionConfig,
-      query: string
+      query: string,
     ) => Promise<{
       success: boolean;
       rows?: Record<string, unknown>[];
@@ -51,7 +53,7 @@ interface Window {
       rowCount?: number;
       error?: string;
     }>;
-    
+
     openFileDialog: (options: {
       title?: string;
       defaultPath?: string;
@@ -61,18 +63,18 @@ interface Window {
         extensions: string[];
       }>;
     }) => Promise<string | null>;
-    
+
     getConnections: () => Promise<Connection[]>;
-    
-    addConnection: (connectionConfig: ConnectionConfig) => Promise<{ 
-      success: boolean; 
-      connection?: Connection; 
-      error?: string 
+
+    addConnection: (connectionConfig: ConnectionConfig) => Promise<{
+      success: boolean;
+      connection?: Connection;
+      error?: string;
     }>;
-    
-    deleteConnection: (id: string) => Promise<{ 
-      success: boolean; 
-      error?: string 
+
+    deleteConnection: (id: string) => Promise<{
+      success: boolean;
+      error?: string;
     }>;
   };
 }
