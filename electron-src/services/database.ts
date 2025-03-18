@@ -1,6 +1,4 @@
-import { readFileSync } from 'fs';
 import { Client, ClientConfig } from 'pg';
-import { Connector } from '@google-cloud/cloud-sql-connector';
 
 interface ConnectionConfig {
   name: string;
@@ -30,9 +28,8 @@ export async function connectToPostgres(config: ConnectionConfig): Promise<Clien
 
     // GCP Cloud SQL接続の場合
     if (config.isGcp && config.serviceAccountKeyPath && config.instanceConnectionName) {
-      const serviceAccountKey = JSON.parse(
-        readFileSync(config.serviceAccountKeyPath, 'utf8')
-      );
+      // Cloud SQL Connectorを動的にインポート
+      const { Connector } = await import('@google-cloud/cloud-sql-connector');
       
       const connector = new Connector();
       const clientOpts = await connector.getOptions({

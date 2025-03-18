@@ -6,6 +6,9 @@ import { format } from "url";
 import { BrowserWindow, app, ipcMain, type IpcMainEvent } from "electron";
 import isDev from "electron-is-dev";
 import prepareNext from "electron-next";
+import { setupDatabaseIpcHandlers } from './ipc/database';
+import { setupDialogIpcHandlers } from './ipc/dialog';
+import { setupWindowIpcHandlers } from './ipc/window';
 
 // Prepare the renderer once the app is ready
 app.on("ready", async () => {
@@ -29,7 +32,17 @@ app.on("ready", async () => {
         slashes: true,
       });
 
+  mainWindow.webContents.openDevTools();
   mainWindow.loadURL(url);
+  
+  // データベース接続関連のIPCハンドラを設定
+  setupDatabaseIpcHandlers();
+  
+  // ダイアログ関連のIPCハンドラを設定
+  setupDialogIpcHandlers();
+  
+  // ウィンドウ操作関連のIPCハンドラを設定
+  setupWindowIpcHandlers();
 });
 
 // Quit the app once all windows are closed

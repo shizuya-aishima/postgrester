@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron';
-import { connectToPostgres, testConnection } from '../../main/services/database';
-import { ConnectionStorage } from '../../main/storage/connections';
+import { connectToPostgres, testConnection } from '../services/database';
+import { ConnectionStorage } from '../storage/connections';
 
 // 接続情報を管理するストレージインスタンス
 const connectionStorage = new ConnectionStorage();

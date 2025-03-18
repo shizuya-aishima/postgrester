@@ -1,4 +1,3 @@
-import ConnectionModal from '@/components/ConnectionModal';
 import { useEffect, useState } from 'react';
 import type React from 'react';
 
@@ -19,25 +18,40 @@ interface Connection {
 
 const Sidebar: React.FC = () => {
   const [connections, setConnections] = useState<Connection[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // 保存された接続情報をロード
   useEffect(() => {
-    const loadConnections = async () => {
-      try {
-        setIsLoading(true);
-        const savedConnections = await window.electronAPI.getConnections();
-        setConnections(savedConnections);
-      } catch (error) {
-        console.error('接続情報の読み込みエラー:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     loadConnections();
   }, []);
+
+  const loadConnections = async () => {
+    try {
+      setIsLoading(true);
+      // Electron APIの存在チェック
+      if (
+        typeof window !== 'undefined' &&
+        window.electron &&
+        window.electron.getConnections
+      ) {
+        const savedConnections = await window.electron.getConnections();
+        setConnections(savedConnections);
+      } else {
+        // ブラウザ環境やElectron APIがない場合はダミーデータを使用
+        console.warn(
+          'Electron APIが利用できません。ダミーデータを表示します。',
+        );
+        setConnections([
+          { id: '1', name: 'サンプル PostgreSQL', type: 'postgresql' },
+          { id: '2', name: 'サンプル MySQL', type: 'mysql' },
+        ]);
+      }
+    } catch (error) {
+      console.error('接続情報の読み込みエラー:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleAddConnection = async (connectionData: {
     name: string;
@@ -52,29 +66,74 @@ const Sidebar: React.FC = () => {
     serviceAccountKeyPath?: string;
     instanceConnectionName?: string;
   }) => {
-    try {
-      // 接続情報を保存
-      const result = await window.electronAPI.addConnection(connectionData);
+    // サブウィンドウで処理されるため不要になります
+  };
 
-      if (result.success && result.connection) {
-        setConnections([...connections, result.connection]);
-        setIsModalOpen(false);
+  const handleOpenConnectionForm = async () => {
+    try {
+      // Electron APIの存在チェック
+      if (
+        typeof window !== 'undefined' &&
+        window.electron &&
+        window.electron.openConnectionFormWindow
+      ) {
+        console.log('接続フォームウィンドウを開く処理を実行します...');
+
+        // サブウィンドウを開く
+        const result = await window.electron.openConnectionFormWindow();
+        console.log('接続フォームウィンドウの結果:', result);
+
+        if (!result.success) {
+          console.error(
+            '接続フォームウィンドウの作成に失敗しました:',
+            result.error,
+          );
+        }
+
+        // 接続リストを更新するタイミングを設定
+        // サブウィンドウで保存が完了した後にメインウィンドウの接続リストを更新する必要がある
+        // 一定間隔でポーリングする簡易的な方法を使用
+        const checkInterval = setInterval(async () => {
+          const currentConnections = await window.electron?.getConnections?.();
+          if (currentConnections?.length !== connections.length) {
+            // 接続数が変わったら更新
+            setConnections(currentConnections);
+            clearInterval(checkInterval);
+          }
+        }, 1000);
+
+        // 30秒後にポーリングを停止
+        setTimeout(() => {
+          clearInterval(checkInterval);
+        }, 30000);
       } else {
-        console.error('接続情報の保存に失敗しました:', result.error);
+        console.warn(
+          'Electron APIが利用できません。この機能はデスクトップアプリでのみ使用できます。',
+        );
       }
     } catch (error) {
-      console.error('接続情報の保存エラー:', error);
+      console.error('接続フォームウィンドウ作成エラー:', error);
     }
   };
 
   const handleDeleteConnection = async (id: string) => {
     try {
-      const result = await window.electronAPI.deleteConnection(id);
+      // Electron APIの存在チェック
+      if (
+        typeof window !== 'undefined' &&
+        window.electron &&
+        window.electron.deleteConnection
+      ) {
+        const result = await window.electron.deleteConnection(id);
 
-      if (result.success) {
-        setConnections(connections.filter((conn) => conn.id !== id));
+        if (result.success) {
+          setConnections(connections.filter((conn) => conn.id !== id));
+        } else {
+          console.error('接続情報の削除に失敗しました');
+        }
       } else {
-        console.error('接続情報の削除に失敗しました');
+        // ブラウザ環境ではフロントエンドだけで削除
+        setConnections(connections.filter((conn) => conn.id !== id));
       }
     } catch (error) {
       console.error('接続情報の削除エラー:', error);
@@ -90,7 +149,7 @@ const Sidebar: React.FC = () => {
             type='button'
             className='text-gray-600 hover:text-gray-800'
             aria-label='新しい接続を追加'
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleOpenConnectionForm}
           >
             <svg
               className='h-5 w-5'
@@ -184,11 +243,6 @@ const Sidebar: React.FC = () => {
           </div>
         )}
       </div>
-      <ConnectionModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleAddConnection}
-      />
     </aside>
   );
 };

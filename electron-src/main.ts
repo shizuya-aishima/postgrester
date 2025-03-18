@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import { setupDatabaseIpcHandlers } from './ipc/database';
 import { setupDialogIpcHandlers } from './ipc/dialog';
+import { setupWindowIpcHandlers } from './ipc/window';
 
 let mainWindow: BrowserWindow | null;
 
@@ -19,9 +20,9 @@ function createWindow() {
   const url = process.env.ELECTRON_START_URL || `file://${path.join(__dirname, '../renderer/out/index.html')}`;
   mainWindow.loadURL(url);
 
-  if (process.env.NODE_ENV === 'development') {
+//   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
-  }
+//   }
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -36,6 +37,9 @@ app.on('ready', () => {
   
   // ダイアログ関連のIPCハンドラを設定
   setupDialogIpcHandlers();
+  
+  // ウィンドウ操作関連のIPCハンドラを設定
+  setupWindowIpcHandlers();
 });
 
 app.on('window-all-closed', () => {
