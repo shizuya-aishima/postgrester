@@ -47,6 +47,23 @@ const ConnectionForm: React.FC<ConnectionFormProps> = ({
     setConnectionData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Fileオブジェクトからパスを取得（セキュリティ上の理由で制限あり）
+      const filePath = file.name;
+      setConnectionData((prev) => ({
+        ...prev,
+        serviceAccountKeyPath: filePath,
+      }));
+    }
+  };
+
+  const handleFileSelect = () => {
+    // 隠しファイル入力をクリック
+    document.getElementById('fileInput')?.click();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(connectionData);
@@ -192,16 +209,33 @@ const ConnectionForm: React.FC<ConnectionFormProps> = ({
                 htmlFor='serviceAccountKeyPath'
                 className='block text-sm font-medium text-gray-700 mb-1'
               >
-                サービスアカウントキーファイルパス (.json)
+                サービスアカウントキーファイル (.json)
               </label>
+              <div className='flex'>
+                <input
+                  type='text'
+                  id='serviceAccountKeyPath'
+                  name='serviceAccountKeyPath'
+                  value={connectionData.serviceAccountKeyPath}
+                  onChange={handleChange}
+                  className='flex-1 px-3 py-2 border border-gray-300 rounded-l-md'
+                  placeholder='/path/to/service-account-key.json'
+                  required
+                />
+                <button
+                  type='button'
+                  onClick={handleFileSelect}
+                  className='px-4 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-r-md hover:bg-gray-200'
+                >
+                  選択
+                </button>
+              </div>
               <input
-                type='text'
-                id='serviceAccountKeyPath'
-                name='serviceAccountKeyPath'
-                value={connectionData.serviceAccountKeyPath}
-                onChange={handleChange}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md'
-                required
+                type='file'
+                id='fileInput'
+                accept='.json'
+                onChange={handleFileChange}
+                className='hidden'
               />
             </div>
           </>

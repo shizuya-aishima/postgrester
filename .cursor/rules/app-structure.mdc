@@ -45,3 +45,5 @@ alwaysApply: true
 - エッジケースとエラーシナリオ
 - Electronアプリケーション動作テスト
 - 複数データベース対応のテスト環境
+
+[README.md](mdc:README.md)

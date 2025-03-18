@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import { setupDatabaseIpcHandlers } from './ipc/database';
+import { setupDialogIpcHandlers } from './ipc/dialog';
 
 let mainWindow: BrowserWindow | null;
 
@@ -32,6 +33,9 @@ app.on('ready', () => {
   
   // データベース接続関連のIPCハンドラを設定
   setupDatabaseIpcHandlers();
+  
+  // ダイアログ関連のIPCハンドラを設定
+  setupDialogIpcHandlers();
 });
 
 app.on('window-all-closed', () => {

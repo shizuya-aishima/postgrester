@@ -25,5 +25,25 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // クエリ実行
   executeQuery: (connectionConfig: any, query: string) => {
     return ipcRenderer.invoke('database:execute-query', { connectionConfig, query });
+  },
+  
+  // ファイル選択ダイアログを開く
+  openFileDialog: (options: any) => {
+    return ipcRenderer.invoke('dialog:open-file', options);
+  },
+  
+  // 保存された接続リストを取得
+  getConnections: () => {
+    return ipcRenderer.invoke('database:get-connections');
+  },
+  
+  // 新しい接続を保存
+  addConnection: (connectionConfig: any) => {
+    return ipcRenderer.invoke('database:add-connection', connectionConfig);
+  },
+  
+  // 接続を削除
+  deleteConnection: (id: string) => {
+    return ipcRenderer.invoke('database:delete-connection', id);
   }
 });
