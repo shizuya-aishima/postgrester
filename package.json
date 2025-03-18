@@ -17,9 +17,12 @@
     "check": "biome check --write"
   },
   "dependencies": {
+    "@google-cloud/cloud-sql-connector": "^1.6.1",
     "app-root-path": "^3.1.0",
     "electron-is-dev": "^1.2.0",
     "electron-next": "^3.1.5",
+    "google-auth-library": "^9.15.1",
+    "pg": "^8.14.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -27,6 +30,7 @@
     "@biomejs/biome": "1.9.4",
     "@tailwindcss/postcss": "^4.0.14",
     "@types/node": "^14.18.63",
+    "@types/pg": "^8.11.11",
     "@types/react": "^16.14.52",
     "@types/react-dom": "^16.9.24",
     "autoprefixer": "^10.4.21",
@@ -41,6 +45,9 @@
   },
   "build": {
     "asar": true,
-    "files": ["main", "renderer/out"]
+    "files": [
+      "main",
+      "renderer/out"
+    ]
   }
 }

@@ -14,3 +14,16 @@ contextBridge.exposeInMainWorld("electron", {
     handler: (event: IpcRendererEvent, ...args: any[]) => void,
   ) => ipcRenderer.removeListener("message", handler),
 });
+
+// レンダラープロセスに公開するAPIを定義
+contextBridge.exposeInMainWorld('electronAPI', {
+  // データベース接続テスト
+  testConnection: (connectionConfig: any) => {
+    return ipcRenderer.invoke('database:test-connection', connectionConfig);
+  },
+  
+  // クエリ実行
+  executeQuery: (connectionConfig: any, query: string) => {
+    return ipcRenderer.invoke('database:execute-query', { connectionConfig, query });
+  }
+});

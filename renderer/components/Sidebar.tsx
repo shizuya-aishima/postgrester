@@ -1,3 +1,4 @@
+import ConnectionModal from '@/components/ConnectionModal';
 import type React from 'react';
 import { useState } from 'react';
 
@@ -12,6 +13,32 @@ const Sidebar: React.FC = () => {
     { id: '1', name: 'Local PostgreSQL', type: 'postgresql' },
     { id: '2', name: 'Production MySQL', type: 'mysql' },
   ]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddConnection = (connectionData: {
+    name: string;
+    type: 'postgresql' | 'mysql' | 'sqlite';
+    host?: string;
+    port?: string;
+    database?: string;
+    username?: string;
+    password?: string;
+    file?: string;
+    isGcp?: boolean;
+    serviceAccountKeyPath?: string;
+    instanceConnectionName?: string;
+  }) => {
+    const newConnection: Connection = {
+      id: Date.now().toString(), // 簡易的なID生成
+      name: connectionData.name,
+      type: connectionData.type,
+    };
+
+    setConnections([...connections, newConnection]);
+    setIsModalOpen(false);
+
+    // TODO: ここでElectron IPCを使用して接続情報を保存・検証する
+  };
 
   return (
     <aside className='w-64 bg-white border-r border-gray-200 h-screen'>
@@ -22,6 +49,7 @@ const Sidebar: React.FC = () => {
             type='button'
             className='text-gray-600 hover:text-gray-800'
             aria-label='新しい接続を追加'
+            onClick={() => setIsModalOpen(true)}
           >
             <svg
               className='h-5 w-5'
@@ -68,12 +96,27 @@ const Sidebar: React.FC = () => {
                     <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' />
                   </svg>
                 )}
+                {connection.type === 'sqlite' && (
+                  <svg
+                    className='h-4 w-4 text-green-600'
+                    fill='currentColor'
+                    viewBox='0 0 24 24'
+                    aria-hidden='true'
+                  >
+                    <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' />
+                  </svg>
+                )}
               </span>
               {connection.name}
             </button>
           ))}
         </div>
       </div>
+      <ConnectionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddConnection}
+      />
     </aside>
   );
 };
