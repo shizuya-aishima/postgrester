@@ -1,11 +1,11 @@
 'use client';
 
+import List from '@/components/List';
+import type { User } from '@/interfaces';
+import { findAll } from '@/utils/sample-api';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import List from '../../components/List';
-import type { User } from '../../interfaces';
-import { findAll } from '../../utils/sample-api';
 
 export default function InitialPropsPage() {
   const pathname = usePathname();

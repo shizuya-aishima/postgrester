@@ -1,31 +1,21 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import React, { type ReactNode } from 'react';
+import Header from '@/components/Header';
+import Sidebar from '@/components/Sidebar';
+import type React from 'react';
 
-type Props = {
-  children: ReactNode;
-  title?: string;
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return (
+    <div className='flex h-screen bg-gray-50'>
+      <Sidebar />
+      <div className='flex-1 flex flex-col overflow-hidden'>
+        <Header />
+        <main className='flex-1 overflow-auto p-4'>{children}</main>
+      </div>
+    </div>
+  );
 };
-
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet='utf-8' />
-      <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-    </Head>
-    <header>
-      <nav>
-        <Link href='/'>Home</Link> | <Link href='/about'>About</Link> |{' '}
-        <Link href='/initial-props'>With Initial Props</Link>
-      </nav>
-    </header>
-    {children}
-    <footer>
-      <hr />
-      <span>I'm here to stay (Footer)</span>
-    </footer>
-  </div>
-);
 
 export default Layout;
