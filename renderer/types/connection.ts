@@ -31,4 +31,4 @@ export interface ConnectionConfig {
   isGcp: boolean;
   serviceAccountKeyPath: string;
   instanceConnectionName?: string;
-} 
+}
