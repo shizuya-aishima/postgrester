@@ -23,7 +23,7 @@ interface Window {
       serviceAccountKeyPath?: string;
       instanceConnectionName?: string;
     }) => Promise<{ success: boolean; error?: string }>;
-    
+
     executeQuery: (
       connectionConfig: {
         name: string;
@@ -38,7 +38,7 @@ interface Window {
         serviceAccountKeyPath?: string;
         instanceConnectionName?: string;
       },
-      query: string
+      query: string,
     ) => Promise<{
       success: boolean;
       rows?: Record<string, unknown>[];
@@ -47,4 +47,4 @@ interface Window {
       error?: string;
     }>;
   };
-} 
+}
