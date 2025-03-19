@@ -4,14 +4,15 @@ import type { User } from '../../../interfaces';
 import { findAll, findData } from '../../../utils/sample-api';
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const item = await findData(params.id);
+    const { id } = await params;
+    const item = await findData(id);
     return {
       title: `${item.name} | Next.js + TypeScript Example`,
     };
@@ -31,7 +32,8 @@ export async function generateStaticParams() {
 
 export default async function DetailPage({ params }: Props) {
   try {
-    const item = await findData(params.id);
+    const { id } = await params;
+    const item = await findData(id);
     return <>{item && <ListDetail item={item} />}</>;
   } catch (err) {
     return (

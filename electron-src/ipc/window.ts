@@ -1,4 +1,5 @@
-import { ipcMain, BrowserWindow } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
+import isDev from "electron-is-dev";
 import * as path from 'path';
 
 /**
@@ -37,13 +38,14 @@ export function setupWindowIpcHandlers(): void {
       }
       
       // URLを指定
-      const url = process.env.ELECTRON_START_URL 
-        ? `${process.env.ELECTRON_START_URL}/connection-form` 
-        : `file://${path.join(__dirname, '../../renderer/out/connection-form.html')}`;
+      const url = isDev 
+        ? "http://localhost:8000/connection" 
+        : `file://${path.join(__dirname, '../../renderer/out/connection.html')}`;
       
       console.log('サブウィンドウのURL:', url);
       
-      await subWindow.loadURL(url);
+      subWindow.webContents.openDevTools();
+      subWindow.loadURL(url);
       
       // 読み込み完了後に表示
       subWindow.once('ready-to-show', () => {

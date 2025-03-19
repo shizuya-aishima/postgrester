@@ -74,13 +74,21 @@ const ConnectionForm: React.FC<ConnectionFormProps> = ({
       setTestStatus('testing');
       setTestError(null);
 
-      const result = await window.electronAPI.testConnection(connectionData);
+      // Electronの機能を使用する前に、window.electronAPIが存在するか確認
+      if (typeof window !== 'undefined' && window.electronAPI) {
+        const result = await window.electronAPI.testConnection(connectionData);
 
-      if (result.success) {
-        setTestStatus('success');
+        if (result.success) {
+          setTestStatus('success');
+        } else {
+          setTestStatus('error');
+          setTestError(result.error || '接続に失敗しました');
+        }
       } else {
         setTestStatus('error');
-        setTestError(result.error || '接続に失敗しました');
+        setTestError(
+          'Electron APIが利用できません。Electron環境で実行してください。',
+        );
       }
     } catch (error) {
       setTestStatus('error');
